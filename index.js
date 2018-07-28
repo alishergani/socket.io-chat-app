@@ -6,7 +6,7 @@ var app = express();
 var server = http.Server(app);
 var io = socektIo(server)
 
-var port = 3000;
+var port = 1234;
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
