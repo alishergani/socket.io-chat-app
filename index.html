@@ -22,7 +22,7 @@
     </div>
 
     <script>
-      const socket = io('https://ka4an-chat.herokuapp.com:1234');
+      const socket = io.connect(window.location.hostname);
       new Vue({
         el: '#vue',
         data() {
