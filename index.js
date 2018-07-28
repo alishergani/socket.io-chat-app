@@ -27,6 +27,4 @@ io.on('connection', function(socket){
   })
 });
 
-server.listen(port, function(){
-  console.log('listening on *:' + port);
-});
+server.listen(process.env.PORT || 1234);
