@@ -1,13 +1,16 @@
 # chat-example
 
-This is the source code for a very simple chat example used for
-the [Getting Started](http://socket.io/get-started/chat/) guide
-of the Socket.IO website.
+this app on Heroku [ka4an-chat.herokuapp.com](https://ka4an-chat.herokuapp.com/)
 
-Please refer to it to learn how to run this application.
+## Build Setup
 
-You can also spin up a free Heroku dyno to test it out:
+``` bash
+# install dependencies
+npm install
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/socketio/chat-example)
+# serve with hot reload at localhost:8080
+npm start
 
-Besides, the application is deployed on [Now](https://zeit.co/now): https://socketio-chat-example.now.sh/
+# build for production with minification
+# no build configes 
+```
