@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="vue">
+      <ul>
+        <li v-for="item in messages">{{item.name}}:{{item.message}}</li>
+      </ul>
+      
+      <i v-if="typing">{{typingName}} is typing....</i>
+      <input v-model="message" @keydown="writingEvent"/>
+      <button @click.prevent="sendMessage">Send</button>
+      
+      <div class="online-users">
+        <h4>Online users: #####</h4>
+        <b v-for="user in onlineUsers">{{user}}</b>
+      </div>
+    </div>
+
+    <script>
+      const socket = io('http://localhost:3000');
+      new Vue({
+        el: '#vue',
+        data() {
+          return {
+            onlineUsers: [],
+            messages: [],
+            message: '',
+            name: '',
+            typing: false,
+            typingName: ''
+          }
+        },
+        methods: {
+          sendMessage() {
+            socket.emit('message', { 
+              name: this.name,
+              message: this.message
+            });
+
+            this.message = ''
+          },
+          writingEvent() {
+            socket.emit('typing', this.name)
+          }
+        },
+        created() {
+          this.name = prompt('What is your name?', 'someone')
+
+          socket.emit('userconnected', this.name)
+
+          socket.on('message', (msg) => {
+            console.log(msg)
+            this.messages.push(msg)
+          })
+          socket.on('online', (name) => {
+            this.onlineUsers.push(name)
+          })
+
+          socket.on('typing', (data) => {
+            this.typing = true
+            this.typingName = data
+            setTimeout( () => {
+              this.typing = false
+            }, 1000)
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
